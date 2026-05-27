@@ -88,10 +88,10 @@ def main():
         print("Invalid input. n must be an integer between 2 and 10.")
         return
 
-    part_a = get_strobogrammatic(n)
+    part_a = strobogrammatic(n)
     print_results(f"Part a — Pure Strobogrammatic ({n} digits)", part_a)
 
-    part_b = get_extended_strobogrammatic(n)
+    part_b = extended_strobogrammatic(n)
     print_results(f"Part b — Extended Strobogrammatic ({n} digits)", part_b)
 
 
