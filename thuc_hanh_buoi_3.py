@@ -80,7 +80,7 @@ def print_results(label: str, numbers: list[str], columns: int = 10):
 # Main
 # ─────────────────────────────────────────────────────────────
 def main():
-    try:
+try:
         n = int(input("Enter n (2 <= n <= 10): "))
         if not (2 <= n <= 10):
             raise ValueError
