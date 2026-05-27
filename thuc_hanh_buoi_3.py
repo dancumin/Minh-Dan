@@ -1,5 +1,5 @@
-#San loc so nguyen to
-#is_prime[i] = True neu i la so nguyen to
+# San loc so nguyen to
+# is_prime[i] = True neu i la so nguyen to
 
 LIMIT = 1_000_000
 is_prime = [False, False] + [True] * (LIMIT - 1)
@@ -14,8 +14,8 @@ while i * i <= LIMIT:
 STANDARD = {'0': '0', '1': '1', '6': '9', '8': '8', '9': '6'}
 EXTENDED = {**STANDARD, '2': '2', '5': '5'}
 
-#kiem tra strobogrammatic
-#xoay 180 do = dao chuoi * mang tung chu so -> phai ra chinh no
+# kiem tra strobogrammatic
+# xoay 180 do = dao chuoi * mang tung chu so -> phai ra chinh no
 def is_strobo(n, ext=False):
     s = str(n)
     mp = EXTENDED if ext else STANDARD
@@ -27,58 +27,29 @@ def is_strobo(n, ext=False):
         right -= 1
     return True
 
-# lay anh xoay 180
-def rotate_image(n):
-    s = str(n)
-    result = ''
-    for c in reversed(s):
-        if c not in STANDARD:
-            return None
-        result += STANDARD[c]
-    return None if result[0] == '0' else int(result)
+def strobogrammatic(n):
+    # Hàm xử lý phần a: Tìm số Pure Strobogrammatic
+    result = []
+    start = 10**(n-1) if n > 1 else 0
+    end = 10**n
+    for num in range(start, end):
+        if is_strobo(num, ext=False):
+            result.append(num)
+    return result
 
+def extended_strobogrammatic(n):
+    # Hàm xử lý phần b: Tìm số Extended Strobogrammatic kèm điều kiện số nguyên tố
+    result = []
+    start = 10**(n-1) if n > 1 else 0
+    end = 10**n
+    for num in range(start, end):
+        if is_strobo(num, ext=True) and is_prime[num]:
+            result.append(num)
+    return result
 
-print("a. So strobogrammatic < 1,000,000")
-a = [n for n in range(1, LIMIT) if is_strobo(n)]
-print(f"   Co {len(a)} so:", a, "\n")
+def print_results(title, results):
+    print(f"{title}: {results}")
 
-print("b. Số nguyen to strobogrammatic < 1,000,000")
-b = [n for n in a if is_prime[n]]
-print(f"   Co {len(b)} so:", b, "\n")
-
-print("c. So strobogrammatic mo rong < 1,000,000")
-c = [n for n in range(1, LIMIT) if is_strobo(n, ext=True)]
-print(f"   Co {len(c)} so:", c, "\n")
-
-print("d. So nguyen to strobogrammatic mo rong < 1,000,000")
-d = [n for n in c if is_prime[n]]
-print(f"   Co {len(d)} so:", d, "\n")
-
-print("e. Khong phai strobo, khong phai so nguyen to, nhung anh xoay la so nguyen to")
-e = []
-for n in range(2, LIMIT):
-    if is_strobo(n): continue  # loai: da la strobo
-    if is_prime[n]: continue  # loai: la so nguyen to
-    img = rotate_image(n)
-    if img and 2 <= img < LIMIT and is_prime[img]:
-        e.append(n)
-print(f"   Co {len(e)} so:", e[:50], "...")
-# Helper: Print formatted grid
-# ─────────────────────────────────────────────────────────────
-def print_results(label: str, numbers: list[str], columns: int = 10):
-    print(f"\n{label} ({len(numbers)} numbers):")
-    print("─" * 55)
-    for i, num in enumerate(numbers, 1):
-        print(f"{num:>8}", end="")
-        if i % columns == 0:
-            print()
-    if len(numbers) % columns != 0:
-        print()
-
-
-# ─────────────────────────────────────────────────────────────
-# Main
-# ─────────────────────────────────────────────────────────────
 def main():
     try:
         n = int(input("Enter n (2 <= n <= 10): "))
@@ -89,11 +60,10 @@ def main():
         return
 
     part_a = strobogrammatic(n)
-    print_results(f"Part a — Pure Strobogrammatic ({n} digits)", part_a)
-
+    print_results(f"Part a - Pure Strobogrammatic ({n} digits)", part_a)
+    
     part_b = extended_strobogrammatic(n)
-    print_results(f"Part b — Extended Strobogrammatic ({n} digits)", part_b)
-
+    print_results(f"Part b - Extended Strobogrammatic ({n} digits)", part_b)
 
 if __name__ == "__main__":
     main()
