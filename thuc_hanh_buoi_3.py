@@ -80,19 +80,19 @@ def print_results(label: str, numbers: list[str], columns: int = 10):
 # Main
 # ─────────────────────────────────────────────────────────────
 def main():
-try:
-        n = int(input("Enter n (2 <= n <= 10): "))
-        if not (2 <= n <= 10):
-            raise ValueError
+     try:
+            n = int(input("Enter n (2 <= n <= 10): "))
+            if not (2 <= n <= 10):
+                raise ValueError
     except ValueError:
-        print("Invalid input. n must be an integer between 2 and 10.")
-        return
-
-part_a = get_strobogrammatic(n)
-print_results(f"Part a — Pure Strobogrammatic ({n} digits)", part_a)
-
- part_b = get_extended_strobogrammatic(n)
- print_results(f"Part b — Extended Strobogrammatic ({n} digits)", part_b)
+            print("Invalid input. n must be an integer between 2 and 10.")
+            return
+    
+        part_a = get_strobogrammatic(n)
+        print_results(f"Part a — Pure Strobogrammatic ({n} digits)", part_a)
+        
+         part_b = get_extended_strobogrammatic(n)
+         print_results(f"Part b — Extended Strobogrammatic ({n} digits)", part_b)
 
 
 if __name__ == "__main__":
